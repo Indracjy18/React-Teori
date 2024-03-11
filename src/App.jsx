@@ -1,41 +1,27 @@
-import "./App.css";
+import { useState } from "react";
+import "../src/App.css";
 import Intro from "./components/Intro";
 
 function App() {
-  const datas = [
-    {
-      name: "Indra",
-      hobby: "ngoding",
-      umur: "26tahun",
-    },
+  const [counter, setCounter] = useState(0);
 
-    {
-      name: "Dita",
-      obby: "Tiktok",
-      umur: "25tahun",
-    },
-    {
-      name: "Jiran",
-      hobby: "Bermain",
-      umur: "2tahun",
-    },
-  ];
+  const decrementCounter = () => {
+    setCounter(counter - 1);
+  };
+
+  const incrementCounter = () => {
+    setCounter(counter + 1);
+  };
+
   return (
     <>
-      {/*  <Intro nama=" MAS INDRA" umur="26" hobby="ngoding" />
-  <Intro nama=" KAK DITA" umur="25" hobby="maen tikto}k" />*/}
-
       <div>
-        {datas.map((data, index) => {
-          return (
-            <Intro
-              key={index}
-              nama={data.name}
-              hobby={data.hobby}
-              umur={data.umur}
-            />
-          );
-        })}
+        <button onClick={decrementCounter}>-</button>
+        <div>{counter}</div>
+        <button onClick={incrementCounter}>+</button>
+        <div className={`${counter % 2 == 0 ? "red" : "blue"}`}>
+          {counter > 10 || <p>PERFECT</p>}
+        </div>
       </div>
     </>
   );
