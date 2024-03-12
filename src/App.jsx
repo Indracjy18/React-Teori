@@ -1,53 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 import Intro from "./components/Intro";
+import CreateForm from "./components/CreateForm";
 
 function App() {
-  const initialState = {
-    nama: "",
-    hobby: "",
-    agama: "",
-  };
-  const [data, setData] = useState(initialState);
-  const { nama, hobby, agama } = data;
-  const handleSubmit = (e) => {
-    {
-      /* sebelum logic / initiate script di onsSubmit harus e.preventDefault */
-    }
-    e.preventDefault();
-    console.log(data);
-    setData(initialState);
-  };
-  const handleChange = (e) => {
-    //set nama dari event,value dari apa yg mau kita ketik
-
-    //menggunakan spread operator
-    setData({ ...data, [e.target.name]: e.target.value });
+  const [nama, setNama] = useState("");
+  //kirim function dari parent componentnya
+  const onCreate = (data) => {
+    console.log("console dari parent component", data);
+    //update state dari parent
+    setNama(data.nama);
   };
   return (
+    //onCreate 1 sebagai props
+
     <>
-      <div>
-        <form onSubmit={handleSubmit} action="">
-          <label htmlFor="">nama</label>
-          {/*nilai value harus nama state yang kita buat */}
-          <input type="text" onChange={handleChange} value={nama} name="nama" />
-          <label htmlFor="">Hobby</label>
-          <input
-            type="text"
-            onChange={handleChange}
-            value={hobby}
-            name="hobby"
-          />
-          <label htmlFor="">Agama</label>
-          <input
-            type="text"
-            onChange={handleChange}
-            value={agama}
-            name="agama"
-          />
-          <input type="submit" />
-        </form>
-      </div>
+      <CreateForm onCreate={onCreate} />
+      {nama}
     </>
   );
 }
