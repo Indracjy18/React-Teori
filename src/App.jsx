@@ -1,27 +1,52 @@
 import { useState } from "react";
-import "../src/App.css";
+import "./App.css";
 import Intro from "./components/Intro";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-
-  const decrementCounter = () => {
-    setCounter(counter - 1);
+  const initialState = {
+    nama: "",
+    hobby: "",
+    agama: "",
   };
-
-  const incrementCounter = () => {
-    setCounter(counter + 1);
+  const [data, setData] = useState(initialState);
+  const { nama, hobby, agama } = data;
+  const handleSubmit = (e) => {
+    {
+      /* sebelum logic / initiate script di onsSubmit harus e.preventDefault */
+    }
+    e.preventDefault();
+    console.log(data);
+    setData(initialState);
   };
+  const handleChange = (e) => {
+    //set nama dari event,value dari apa yg mau kita ketik
 
+    //menggunakan spread operator
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <div>
-        <button onClick={decrementCounter}>-</button>
-        <div>{counter}</div>
-        <button onClick={incrementCounter}>+</button>
-        <div className={`${counter % 2 == 0 ? "red" : "blue"}`}>
-          {counter > 10 || <p>PERFECT</p>}
-        </div>
+        <form onSubmit={handleSubmit} action="">
+          <label htmlFor="">nama</label>
+          {/*nilai value harus nama state yang kita buat */}
+          <input type="text" onChange={handleChange} value={nama} name="nama" />
+          <label htmlFor="">Hobby</label>
+          <input
+            type="text"
+            onChange={handleChange}
+            value={hobby}
+            name="hobby"
+          />
+          <label htmlFor="">Agama</label>
+          <input
+            type="text"
+            onChange={handleChange}
+            value={agama}
+            name="agama"
+          />
+          <input type="submit" />
+        </form>
       </div>
     </>
   );
